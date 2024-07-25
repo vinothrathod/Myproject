@@ -1,0 +1,40 @@
+package com.Pumex.API.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+import com.Pumex.API.dao.BootRepo;
+import com.Pumex.API.model.Boot;
+
+@Controller
+public class BootController {
+
+	@Autowired
+	BootRepo repo;
+	
+	@RequestMapping("/")
+	public String home()
+	{
+		return "home.jsp";
+	}
+	
+	@RequestMapping("/addBoot")
+	public String addBoot(Boot boot) {
+		
+		repo.save(boot);
+		return "home.jsp";
+	}
+	
+	
+	@RequestMapping("/boots")
+	@ResponseBody
+	public String getBoots () {
+		
+		return repo.findAll().toString();
+	}
+	
+}
+
